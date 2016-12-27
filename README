@@ -1,0 +1,26 @@
+####PROCEDURE FOR JNI##########
+1. Create JAVA FILE with 3 major parts:
+	a. Load Library
+	b. Prototype of Native function
+	c. Main function where we call native function
+
+2. Run javac on java file to create class file
+3. Run javah on java class name with options -jni and -classpath. A header file will be created with native function prototype declaration for C file.
+4. Create a C file. Include jni.h and generated header file at start. Add stdio.h for C standard functions.
+5. Copy native function prototype from header file to C file. Alter the parameters and give argument variable names.
+6. Write definition in C file for that native function.
+7. Create a shared library from C file using gcc. Its options are :
+	a. -shared, for creating shared library (compulsory)
+	b. -fPIC, required for making Position Independent Code (compulsory)
+8. Also include location of jni.h with gcc. (Use locate jni.h)
+9. Copy created library in jre/lib/ext. this location will be found where Java installation has been done and jni.h is also located in those parts.
+10.Run javaclass using : java -Djava.library.path=. -cp . javaclassname
+
+######EDIT CURRENT DONE JNI EXAMPLE#####
+1. To add in current done example, add desired native function prototype in HelloWorld.java file. Edit main as desired.
+2. Run make. Header file will be added with new native function prototype.
+3. Copy new prototype to C file. Make changes in parameter and definition as desired.
+------>	If any new C file is generated, add it in C_SRC_FILE variable in Makefile
+------> If any new library is generated, add it in run script to be copied in given location
+4. Run ./run
+

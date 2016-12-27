@@ -1,0 +1,2 @@
+sudo cp libhelloworld.so /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext
+java -Djava.library.path=. -cp . HelloWorld
